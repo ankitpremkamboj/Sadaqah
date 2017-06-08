@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Sadaqah</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="nav_home">الصفحة الرئيسية</string>
+    <string name="nav_how_to_use">كيف تستعمل؟</string>
+    <string name="nav_share_app">مشاركة التطبيق</string>
+    <string name="nav_rate_app">قيم التطبيق</string>
+    <string name="nav_khayr_news">خير أخبار</string>
+    <string name="nav_go_to_website">انتقل إلى الموقع</string>
+    <string name="nav_logout">الخروج</string>
+    <string name="nav_signup">سجل</string>
+    <string name="nav_name">أنكيت كومار كامبوج</string>
+    <string name="nav_user_email">android.studio@android.com</string>
+    <string name="header_title">الصدقة</string>
+    <string name="login_welcome">أهلاً و سهلاً</string>
+    <string name="login_signup_continoue">سجل دخولك للإستمرار</string>
+    <string name="login_email">البريد الإلكتروني</string>
+    <string name="login_password">الرقم السري</string>
+    <string name="login_forgot_password">إسترجاع الرقم السري</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="login_new_user_signup">مستخدم جديد؟</string>
+    <string name="login_signup">سجل</string>
+    <string name="facebook">فيس بوك</string>
+    <string name="google">جوجل</string>
+    <string name="or">أو</string>
+    <string name="tab_history">تبرعاتي</string>
+    <string name="tab_setting">تبرعاتي</string>
+    <string name="tab_contact">تواصل معنا</string>
+    <string name="dialog_text">بناء على رغبتك سيتم التبرع بمبلغ "amount"درهم لـ"charity type" للتأكيد يرجى ضغط نعم لإتمام عملية إرسال الرسالة النصية إلي "SMS number"</string>
+    <string name="txt_yes">نعم</string>
+    <string name="txt_no">لا</string>
+
+
+</resources>
