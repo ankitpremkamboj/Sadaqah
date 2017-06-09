@@ -1,4 +1,4 @@
-package com.innoapps.eventmanagement.common.helper;
+package com.innoapps.sadaqah.helper;
 
 /**
  * Created by Ravi Tamada on 28/09/16.
