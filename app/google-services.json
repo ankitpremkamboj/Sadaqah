@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "401815434205",
+    "project_id": "charity-7527a"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401815434205:android:62c19479889d30da",
+        "android_client_info": {
+          "package_name": "com.innoapps.sadaqah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401815434205-q15gs6i198e77o8os1et1id2pfjf0qhq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.innoapps.sadaqah",
+            "certificate_hash": "e80ed331cb278c85c7b4a777e2eb9698d8610120"
+          }
+        },
+        {
+          "client_id": "401815434205-ap27stc21dsnk4d0rl2ou12it96nsid4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvwTcbmjzN7HaX2dEJTQqUh-Z9X8JRSEs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

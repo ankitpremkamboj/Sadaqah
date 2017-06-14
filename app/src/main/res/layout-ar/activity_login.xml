@@ -117,7 +117,7 @@
                 android:layout_below="@+id/txt_forgot_password"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"
                 android:text="@string/login"
                 android:textColor="@color/white"
                 android:textSize="14dp" />
@@ -197,14 +197,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lay_or"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:gravity="center">
 
 
                 <RelativeLayout
                     android:id="@+id/lay_google"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:background="#DB3237"
                     android:orientation="horizontal">
@@ -223,7 +223,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/facebook"
+                        android:text="@string/google"
+                        android:layout_marginRight="10dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
@@ -237,7 +238,7 @@
                 <RelativeLayout
                     android:id="@+id/lay_fb"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:background="#3b5999"
                     android:orientation="horizontal">

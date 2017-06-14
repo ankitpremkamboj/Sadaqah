@@ -39,12 +39,12 @@
     <string name="reg_name">الإسم</string>
     <string name="reg_login">هل أنت مستخدم بالفعل؟</string>
     <string name="reg_allready_user">تسجيل الدخول</string>
-
     <string name="empty_name">الرجاء إدخال الاسم.</string>
     <string name="empty_email">الرجاء إدخال البريد الإلكتروني.</string>
     <string name="invalid_email">بريد إلكتروني خاطئ.</string>
     <string name="empty_password">الرجاء إدخال كلمة المرور.</string>
     <string name="save_profile">حفظ الملف الشخصي</string>
     <string name="change">تغيير الرقم السري</string>
+    <string name="facebook_app_id">112472986025421</string>
 
 </resources>
