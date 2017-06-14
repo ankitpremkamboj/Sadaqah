@@ -27,14 +27,24 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/lite_gray_circle">
 
-                <ImageView
-                    android:id="@+id/img_user"
+                <com.innoapps.sadaqah.helper.RoundedImageView
+                    android:id="@+id/img_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
-                    android:padding="8dp"
-                    android:src="@mipmap/signup_addphoto" />
+                    android:src="@mipmap/ic_default_profile" />
+
+
+                <ImageView
+                    android:id="@+id/img_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:padding="5dp"
+                    android:src="@mipmap/profile_changephoto" />
+
 
             </RelativeLayout>
 
@@ -116,44 +126,28 @@
                     android:textSize="15dp" />
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/btn_signup"
+            <TextView
+                android:id="@+id/txt_change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/input_layout_password"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="20dp"
-                android:textSize="14dp"
-                android:background="@color/colorPrimary"
-                android:text="@string/login_signup"
-                android:textColor="@color/white" />
+                android:gravity="left"
+                android:text="@string/change" />
 
-            <LinearLayout
-                android:id="@+id/lay_signup"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/btn_signup"
+                android:layout_below="@+id/txt_change"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="50dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/save_profile"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
 
-                <TextView
-                    android:id="@+id/txt_new_user_sign_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/reg_login"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/txt_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/reg_allready_user"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14dp" />
-            </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>

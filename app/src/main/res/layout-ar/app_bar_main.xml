@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_layout"
         android:background="@color/colorPrimary"
+        app:tabIndicatorColor="@android:color/white"
         android:minHeight="?attr/actionBarSize"
+        app:tabIndicatorHeight="3dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <FrameLayout

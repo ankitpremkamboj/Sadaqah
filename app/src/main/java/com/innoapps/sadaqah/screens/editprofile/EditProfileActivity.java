@@ -1,12 +1,10 @@
-package com.innoapps.sadaqah.screens.signup;
+package com.innoapps.sadaqah.screens.editprofile;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,51 +31,53 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.innoapps.sadaqah.R;
-import com.innoapps.sadaqah.screens.login.LoginActivity;
-import com.innoapps.sadaqah.screens.navigation.NavigationActivity;
-import com.innoapps.sadaqah.screens.signup.presenter.SignUpPresenter;
-import com.innoapps.sadaqah.screens.signup.presenter.SignUpPresenterImpl;
-import com.innoapps.sadaqah.screens.signup.view.SignUpView;
+import com.innoapps.sadaqah.screens.editprofile.presenter.EditProfilePresenter;
+import com.innoapps.sadaqah.screens.editprofile.presenter.EditProfilePresenterImpl;
+import com.innoapps.sadaqah.screens.editprofile.view.EditProfileView;
+import com.innoapps.sadaqah.screens.navigation.model.UserDetailModel;
+import com.innoapps.sadaqah.screens.navigation.presenter.UserDetailPresenter;
+import com.innoapps.sadaqah.screens.navigation.presenter.UserDetailPresenterImpl;
+import com.innoapps.sadaqah.screens.navigation.view.UserDetailView;
+import com.innoapps.sadaqah.screens.signup.SignUpActivity;
 import com.innoapps.sadaqah.utils.AppConstant;
 import com.innoapps.sadaqah.utils.AppFonts;
 import com.innoapps.sadaqah.utils.GlideCircleTransform;
+import com.innoapps.sadaqah.utils.UserSession;
 import com.innoapps.sadaqah.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class SignUpActivity extends AppCompatActivity implements SignUpView {
-    @InjectView(R.id.txt_login)
-    TextView txt_login;
-    @InjectView(R.id.btn_signup)
-    Button btn_signup;
-    @InjectView(R.id.input_password)
-    EditText input_password;
-    @InjectView(R.id.input_email)
-    EditText input_email;
+public class EditProfileActivity extends AppCompatActivity implements UserDetailView, EditProfileView {
+
+    @InjectView(R.id.img_profile)
+    ImageView img_profile;
+    @InjectView(R.id.img_edit)
+    ImageView img_edit;
     @InjectView(R.id.input_name)
     EditText input_name;
-    @InjectView(R.id.img_user)
-    ImageView img_user;
-    @InjectView(R.id.txt_new_user_sign_up)
-    TextView txt_new_user_sign_up;
-    @InjectView(R.id.user_image_layout)
-    RelativeLayout user_image_layout;
-    private String _name, _email, _password, _signupImage = "";
-    SignUpPresenter signUpPresenter;
+    @InjectView(R.id.input_email)
+    EditText input_email;
+    @InjectView(R.id.input_password)
+    EditText input_password;
+    @InjectView(R.id.btn_save)
+    Button btn_save;
+    @InjectView(R.id.txt_change)
+    TextView txt_change;
+    UserDetailPresenter userDetailPresenter;
+    UserSession userSession;
 
 
     private Dialog selectImageDialog;
@@ -89,113 +89,77 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private String cameraImageFilePath = "";
     private File file;
 
+    EditProfilePresenter editProfilePresenter;
+    private String _name = "", _email = "", _password = "", _signupImage = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        String languageToLoad = "ar"; // your language you can get this as an input or save it in a file ,or do as your requirement
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_edit_profile);
         ButterKnife.inject(this);
+        userSession = new UserSession(this);
+        userDetailPresenter = new UserDetailPresenterImpl();
+        userDetailPresenter.gettingUserDetails(this, this, userSession.getUserID());
         setFonts();
-        signUpPresenter = new SignUpPresenterImpl();
+        editProfilePresenter = new EditProfilePresenterImpl();
     }
 
-    private void setFonts() {
+    @OnClick(R.id.btn_save)
+    public void saveProfile() {
 
-        txt_login.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-        btn_signup.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-        input_password.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-        input_email.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-        input_name.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-        txt_new_user_sign_up.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
 
-    }
-
-    @OnClick(R.id.txt_login)
-    public void login() {
-        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @OnClick(R.id.user_image_layout)
-    public void imageSelect() {
-        selectImage();
-    }
-
-    @OnClick(R.id.btn_signup)
-    public void SignUp() {
         _name = input_name.getText().toString().trim();
         _email = input_email.getText().toString().trim();
         _password = input_password.getText().toString().trim();
 
-        signUpPresenter.validateSignUp(SignUpActivity.this, this, _name, _email, _password, cameraImageFilePath);
-
-
-    }
-
-    //Name validation
-    @Override
-    public void onNameError(String name) {
-        Utils.showError(input_name, name, this);
-
-    }
-//Email validation
-
-    @Override
-    public void onEmailError(String name) {
-        Utils.showError(input_email, name, this);
-
-
-    }
-//Valid Email validation
-
-    @Override
-    public void onValidEmailError(String email) {
-        Utils.showError(input_email, email, this);
-
+        editProfilePresenter.validateProfile(EditProfileActivity.this, this, _name, _email, _password, cameraImageFilePath);
 
     }
 
-    //Password Validation
     @Override
-    public void onPasswordError(String password) {
-        Utils.showError(input_email, password, this);
+    public void getUserDetailsSuccessfull(UserDetailModel.Data data) {
+        if (!data.getName().isEmpty() && data.getName() != null) {
+            input_name.setText(data.getName());
+        } else {
+            input_name.setText("N/A");
+        }
+        if (!data.getEmail().isEmpty() && data.getEmail() != null) {
+            input_email.setText(data.getEmail());
+        } else {
+            input_email.setText("N/A");
+        }
+        if (!data.getImage().isEmpty() && data.getImage() != null) {
+       /*  Glide.with(this)
+                    .load(data.getImage())
+                    .transform(new GlideCircleTransform(this))
+                    .placeholder(R.mipmap.ic_default_profile)
+                    .error(R.mipmap.ic_default_profile)
+                   // .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(img_profile);*/
+
+            Picasso.with(this).load(data.getImage()).placeholder(R.mipmap.ic_default_profile).error(R.mipmap.ic_default_profile).into(img_profile);
+
+        }
+    }
+
+    @Override
+    public void getUserDetailsUnSuccessful(String message) {
 
     }
 
-    //Profile Image Validation
-    @Override
-    public void onSignUpImageError(String profileImage) {
+    private void setFonts() {
+
+        input_password.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
+        input_email.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
+        input_name.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
+        txt_change.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
 
     }
 
-    //Internet check
-    @Override
-    public void onSignUpInternetError() {
-
-    }
-
-    // sign up successfully
-    @Override
-    public void onSignUpSuccessful(String message) {
-
-        Intent intent = new Intent(SignUpActivity.this, NavigationActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
-// sign not up successfully
-
-    @Override
-    public void onSignUpUnSuccessful(String msg) {
-
+    @OnClick(R.id.img_edit)
+    public void changeImage() {
+        selectImage();
     }
 
 
@@ -284,28 +248,28 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
                     file = new File(compressImage(data.getData(), false));
 
                     cameraImageFilePath = compressImage(data.getData(), false);
-                    //  Picasso.with(this).load(file).placeholder(R.mipmap.ic_default_profile).error(R.mipmap.ic_default_profile).into(ivUserImage);
+                    Picasso.with(this).load(file).placeholder(R.mipmap.ic_default_profile).error(R.mipmap.ic_default_profile).into(img_profile);
 
-                    Glide.with(this)
+                   /* Glide.with(this)
                             .load(file)
                             .transform(new GlideCircleTransform(this))
                             .placeholder(R.mipmap.ic_default_profile)
                             .error(R.mipmap.ic_default_profile)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .into(img_user);
+                            .into(img_profile);*/
                 }
             } else if (requestCode == CAMERA_PIC_REQUEST && resultCode == this.RESULT_OK) {
                 if (cameraImageFilePath != null) {
                     file = Utils.getInstance().processCameraImage(this, cameraImageFilePath, this, null);
 
-                    // Picasso.with(this).load(file).placeholder(R.mipmap.ic_default_profile).error(R.mipmap.ic_default_profile).into(ivUserImage);
-                    Glide.with(this)
+                    Picasso.with(this).load(file).placeholder(R.mipmap.ic_default_profile).error(R.mipmap.ic_default_profile).into(img_profile);
+                  /*  Glide.with(this)
                             .load(file)
                             .transform(new GlideCircleTransform(this))
                             .placeholder(R.mipmap.ic_default_profile)
                             .error(R.mipmap.ic_default_profile)
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .into(img_user);
+                            .into(img_profile);*/
                 }
             }
         } catch (Exception e) {
@@ -585,4 +549,43 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         return null;
     }
 
+    @Override
+    public void onNameError(String name) {
+
+    }
+
+    @Override
+    public void onEmailError(String name) {
+
+    }
+
+    @Override
+    public void onValidEmailError(String name) {
+
+    }
+
+    @Override
+    public void onPasswordError(String name) {
+
+    }
+
+    @Override
+    public void onSignUpImageError(String profileImage) {
+
+    }
+
+    @Override
+    public void onSignUpInternetError() {
+
+    }
+
+    @Override
+    public void onSignUpSuccessful(String message) {
+
+    }
+
+    @Override
+    public void onSignUpUnSuccessful(String msg) {
+
+    }
 }

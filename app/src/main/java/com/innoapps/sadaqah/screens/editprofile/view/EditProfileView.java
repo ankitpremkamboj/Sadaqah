@@ -1,10 +1,10 @@
-package com.innoapps.sadaqah.screens.signup.view;
+package com.innoapps.sadaqah.screens.editprofile.view;
 
 /**
- * Created by ankit on 6/12/2017.
+ * Created by ankit on 6/14/2017.
  */
 
-public interface SignUpView {
+public interface EditProfileView {
 
 
     void onNameError(String name);

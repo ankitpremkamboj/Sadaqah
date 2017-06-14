@@ -1,4 +1,4 @@
-package com.innoapps.eventmanagement.common.utils;
+package com.innoapps.sadaqah.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

@@ -1,13 +1,13 @@
-package com.innoapps.sadaqah.screens.signup.model;
+package com.innoapps.sadaqah.screens.navigation.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by ankit on 6/12/2017.
+ * Created by ankit on 6/14/2017.
  */
 
-public class SignUpModel {
+public class UserDetailModel {
 
 
     @SerializedName("code")
@@ -104,5 +104,4 @@ public class SignUpModel {
         }
 
     }
-
 }

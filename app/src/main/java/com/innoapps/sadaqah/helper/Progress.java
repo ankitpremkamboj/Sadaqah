@@ -1,11 +1,11 @@
-package com.innoapps.eventmanagement.common.helper;
+package com.innoapps.sadaqah.helper;
 
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.WindowManager;
 
-import com.innoapps.eventmanagement.R;
+import com.innoapps.sadaqah.R;
 
 
 public class Progress {
@@ -28,7 +28,7 @@ public class Progress {
         }
         dialog.setIndeterminate(true);
 
-        dialog.setContentView(R.layout.progressdialog);
+        dialog.setContentView(R.layout.progress_dialog);
 
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);

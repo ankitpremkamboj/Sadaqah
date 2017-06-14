@@ -1,4 +1,4 @@
-package com.innoapps.eventmanagement.common.helper;
+package com.innoapps.sadaqah.helper;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

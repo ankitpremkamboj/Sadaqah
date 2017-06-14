@@ -1,5 +1,6 @@
 package com.innoapps.sadaqah.screens.taboption;
 
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,7 +14,7 @@ import com.innoapps.sadaqah.screens.taboption.homefragment.HomeFragment;
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
     int tabCount;
 
-    public TabPagerAdapter(FragmentManager fm,int tabCount) {
+    public TabPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         this.tabCount= tabCount;
     }
@@ -28,13 +29,13 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 HomeFragment tab1 = new HomeFragment();
                 return tab1;
             case 1:
-                DemoFragment tab2 = new DemoFragment();
+                HomeFragment tab2 = new HomeFragment();
                 return tab2;
             case 2:
-                DemoFragment tab3 = new DemoFragment();
+                HomeFragment tab3 = new HomeFragment();
                 return tab3;
             case 3:
-                DemoFragment tab4 = new DemoFragment();
+                HomeFragment tab4 = new HomeFragment();
                 return tab4;
             default:
                 return null;

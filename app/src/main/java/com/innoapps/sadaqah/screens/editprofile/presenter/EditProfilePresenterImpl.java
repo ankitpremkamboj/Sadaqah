@@ -1,13 +1,13 @@
-package com.innoapps.sadaqah.screens.signup.presenter;
+package com.innoapps.sadaqah.screens.editprofile.presenter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.innoapps.sadaqah.R;
 import com.innoapps.sadaqah.helper.Progress;
 import com.innoapps.sadaqah.requestresponse.ApiAdapter;
+import com.innoapps.sadaqah.screens.editprofile.model.EditProfileModel;
+import com.innoapps.sadaqah.screens.editprofile.view.EditProfileView;
 import com.innoapps.sadaqah.screens.signup.model.SignUpModel;
 import com.innoapps.sadaqah.screens.signup.view.SignUpView;
 import com.innoapps.sadaqah.utils.UserSession;
@@ -23,37 +23,37 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by ankit on 6/12/2017.
+ * Created by ankit on 6/14/2017.
  */
 
-public class SignUpPresenterImpl implements SignUpPresenter {
+public class EditProfilePresenterImpl implements EditProfilePresenter {
+
+
     @Override
-    public void validateSignUp(Activity activity, SignUpView signUpView, String name, String email, String password, String profile_image) {
-
-        if (validateCredential(activity, signUpView, name, email, password, profile_image)) {
+    public void validateProfile(Activity activity, EditProfileView editProfileView, String name, String email, String password, String profile_image) {
+        if (validateCredential(activity, editProfileView, name, email, password, profile_image)) {
             //  name, email, mobile, company_name, password, cameraImageFilePath
-            callRegisterApi(activity, signUpView, name, email, password, profile_image);
+            callRegisterApi(activity, editProfileView, name, email, password, profile_image);
         }
-
     }
 
-    private void callRegisterApi(Activity activity, SignUpView signUpView, String name, String email, String password, String profile_image) {
+    private void callRegisterApi(Activity activity, EditProfileView editProfileView, String name, String email, String password, String profile_image) {
 
         try {
             ApiAdapter.getInstance(activity);
-            callSignupMethod(activity, signUpView, name, email, password, profile_image);
+            callSignupMethod(activity, editProfileView, name, email, password, profile_image);
         } catch (ApiAdapter.NoInternetException e) {
             e.printStackTrace();
 
         }
     }
 
-    private void callSignupMethod(final Activity activity, final SignUpView signUpView, String name, String email, String password, String profile_image) {
+    private void callSignupMethod(final Activity activity, final EditProfileView signUpView, String name, String email, String password, String profile_image) {
 
         Progress.start(activity);
+        UserSession userSession = new UserSession(activity);
 
-
-        Call<SignUpModel> callLogin;
+        Call<EditProfileModel> callLogin;
 
 
         File file;
@@ -61,7 +61,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
         MultipartBody.Part imageFileBody;
         //prepare image file
 
-
+        RequestBody userIdRequest = RequestBody.create(MediaType.parse("text/plane"), userSession.getUserID());
         RequestBody nameRequest = RequestBody.create(MediaType.parse("text/plain"), name);
         RequestBody passwordRequest = RequestBody.create(MediaType.parse("text/plain"), password);
         RequestBody emailRequest = RequestBody.create(MediaType.parse("text/plain"), email);
@@ -76,38 +76,34 @@ public class SignUpPresenterImpl implements SignUpPresenter {
         }
 
 
-        callLogin = ApiAdapter.getApiService().signUp(nameRequest, emailRequest, passwordRequest, imageFileBody);
+        callLogin = ApiAdapter.getApiService().updateProfile(nameRequest, emailRequest, passwordRequest, imageFileBody, userIdRequest);
 
-        callLogin.enqueue(new Callback<SignUpModel>() {
+        callLogin.enqueue(new Callback<EditProfileModel>() {
             @Override
-            public void onResponse(Call<SignUpModel> call, Response<SignUpModel> response) {
+            public void onResponse(Call<EditProfileModel> call, Response<EditProfileModel> response) {
 
                 Progress.stop();
                 try {
                     //getting whole data from response
-                    SignUpModel userProfileModel = response.body();
+                    EditProfileModel userProfileModel = response.body();
 
-                    String message = userProfileModel.getMessage();
+                    /*String message = userProfileModel.getMessage();
 
                     if (userProfileModel.getCode() == 0) {
 
-                        UserSession userSession = new UserSession(activity);
-                        //  userSession.createUserSession(loginResult.getUserId(), loginResult.getName(), loginResult.getEmail(), loginResult.getMobile(), loginResult.getTokenId(), loginResult.getImage());
-                        userSession.createUserID(String.valueOf(userProfileModel.getData().getUserid()));
-                        //   onLoginFinshedListener.onLoginSuccess(loginResult);
                         signUpView.onSignUpSuccessful(message);
 
 
                     } else {
                         signUpView.onSignUpUnSuccessful(message);
-                    }
+                    }*/
                 } catch (NullPointerException e) {
                     signUpView.onSignUpUnSuccessful(activity.getString(R.string.server_error));
                 }
             }
 
             @Override
-            public void onFailure(Call<SignUpModel> call, Throwable t) {
+            public void onFailure(Call<EditProfileModel> call, Throwable t) {
                 Progress.stop();
                 signUpView.onSignUpUnSuccessful(activity.getString(R.string.server_error));
 
@@ -118,25 +114,24 @@ public class SignUpPresenterImpl implements SignUpPresenter {
 
     }
 
-    public boolean validateCredential(Activity activity, SignUpView registerView, String name, String email, String password, String profile_image) {
+    public boolean validateCredential(Activity activity, EditProfileView editProfileView, String name, String email, String password, String profile_image) {
 
         if (TextUtils.isEmpty(name)) {
-            registerView.onNameError(activity.getString(R.string.empty_name));
+            editProfileView.onNameError(activity.getString(R.string.empty_name));
             return false;
         } else if (TextUtils.isEmpty(email)) {
-            registerView.onEmailError(activity.getString(R.string.empty_email));
+            editProfileView.onEmailError(activity.getString(R.string.empty_email));
 
             return false;
         } else if (!Utils.emailValidation(email)) {
-            registerView.onValidEmailError(activity.getString(R.string.invalid_email));
+            editProfileView.onValidEmailError(activity.getString(R.string.invalid_email));
 
             return false;
         } else if (TextUtils.isEmpty(password)) {
-            registerView.onPasswordError(activity.getString(R.string.empty_password));
+            editProfileView.onPasswordError(activity.getString(R.string.empty_password));
             return false;
         } else {
             return true;
         }
     }
-
 }

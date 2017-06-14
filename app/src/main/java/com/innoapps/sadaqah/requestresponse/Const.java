@@ -5,7 +5,7 @@ package com.innoapps.sadaqah.requestresponse;
  */
 public class Const {
 
-    public static String BASE_URL = "http://innoappstech.com/event_program/";
+    public static String BASE_URL = "http://themezila.com/projects/asmd/v1/";
   //  public static String BASE_URL = "http://innoappstech.com/event_program/api.php";
 
 

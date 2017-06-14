@@ -10,9 +10,10 @@
         android:id="@+id/user_profile"
         android:layout_width="match_parent"
         android:layout_height="155dp"
-        android:layout_alignParentLeft="true"
+        android:paddingRight="15dp"
         android:layout_alignParentTop="true"
-        android:paddingRight="15dp">
+        android:layout_alignParentLeft="true"
+       >
 
         <RelativeLayout
             android:id="@+id/user_image_layout"
@@ -49,27 +50,30 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/imageView"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
                 android:text="@string/nav_name"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txt_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/nav_user_email"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="10dp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
             android:background="@color/alpha_black" />
     </RelativeLayout>
 
@@ -107,11 +111,11 @@
 
         <LinearLayout
             android:id="@+id/lay_signup"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/nav_text_padding">
+            android:padding="@dimen/nav_text_padding"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -256,6 +260,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lay_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

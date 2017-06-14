@@ -34,6 +34,17 @@
     <string name="dialog_text">بناء على رغبتك سيتم التبرع بمبلغ "amount"درهم لـ"charity type" للتأكيد يرجى ضغط نعم لإتمام عملية إرسال الرسالة النصية إلي "SMS number"</string>
     <string name="txt_yes">نعم</string>
     <string name="txt_no">لا</string>
+    <string name="server_error">الخادم لا يستجيب.</string>
+    <string name="rs">التمرير</string>
+    <string name="reg_name">الإسم</string>
+    <string name="reg_login">هل أنت مستخدم بالفعل؟</string>
+    <string name="reg_allready_user">تسجيل الدخول</string>
 
+    <string name="empty_name">الرجاء إدخال الاسم.</string>
+    <string name="empty_email">الرجاء إدخال البريد الإلكتروني.</string>
+    <string name="invalid_email">بريد إلكتروني خاطئ.</string>
+    <string name="empty_password">الرجاء إدخال كلمة المرور.</string>
+    <string name="save_profile">حفظ الملف الشخصي</string>
+    <string name="change">تغيير الرقم السري</string>
 
 </resources>

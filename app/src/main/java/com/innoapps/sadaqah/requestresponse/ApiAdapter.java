@@ -2,8 +2,10 @@ package com.innoapps.sadaqah.requestresponse;
 
 import android.content.Context;
 
-import com.innoapps.eventmanagement.BuildConfig;
-import com.innoapps.eventmanagement.common.helper.NetworkHelper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.innoapps.sadaqah.BuildConfig;
+import com.innoapps.sadaqah.helper.NetworkHelper;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,10 +43,10 @@ public class ApiAdapter {
         if (sInstance == null) {
             synchronized (ApiAdapter.class) {
                 if (sInstance == null) {
-
+                    Gson gson = new GsonBuilder().setLenient().create();
                     sInstance = new Retrofit.Builder()
                             .baseUrl(Const.BASE_URL)
-                            .client(getOkHttpClient()).addConverterFactory(GsonConverterFactory.create()).build()
+                            .client(getOkHttpClient()).addConverterFactory(GsonConverterFactory.create(gson)).build()
                             .create(APIService.class);
                 }
             }
