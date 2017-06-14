@@ -114,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         input_email.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
         input_name.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
         txt_new_user_sign_up.setTypeface(Typeface.createFromAsset(this.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-
+//
     }
 
     @OnClick(R.id.txt_login)
