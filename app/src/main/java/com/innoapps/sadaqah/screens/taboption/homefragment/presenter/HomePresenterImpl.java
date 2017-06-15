@@ -32,8 +32,67 @@ public class HomePresenterImpl implements HomePresenter {
             getAllHomeList(userID);
         } catch (ApiAdapter.NoInternetException e) {
             e.printStackTrace();
-
+            homeView.homeInternetError();
         }
+
+    }
+
+    @Override
+    public void callAddDonation(String userID, String donationID, String amount) {
+
+
+        try {
+            ApiAdapter.getInstance(activity);
+            addDonation(userID,donationID,amount);
+        } catch (ApiAdapter.NoInternetException e) {
+            e.printStackTrace();
+            homeView.homeInternetError();
+        }
+
+    }
+
+    private void addDonation(String userID, String donationID, String amount) {
+
+        Progress.start(activity);
+        Call<HomeModel> callEvent;
+
+
+        callEvent = ApiAdapter.getApiService().addDonationAmount(userID,donationID,amount);
+
+        callEvent.enqueue(new Callback<HomeModel>() {
+            @Override
+            public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
+
+                Progress.stop();
+                try {
+                    //getting whole data from response
+                    HomeModel homeModel = response.body();
+
+                    ArrayList<HomeModel.Datum> homeLists = homeModel.getData();
+
+                    String message = homeModel.getMessage();
+
+
+                    if (homeModel.getCode() == 0) {
+                        homeView.getHomeListSuccessfull(homeLists);
+
+                    } else {
+                        homeView.getHomeListUnSuccessful(message);
+                    }
+                } catch (NullPointerException e) {
+                    homeView.getHomeListUnSuccessful(activity.getString(R.string.server_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeModel> call, Throwable t) {
+                Progress.stop();
+                homeView.getHomeListUnSuccessful(activity.getString(R.string.server_error));
+
+            }
+
+        });
+
 
     }
 

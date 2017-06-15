@@ -14,5 +14,7 @@ public interface HomeView {
 
     void getHomeListUnSuccessful(String message);
 
+    void homeInternetError();
+
 
 }

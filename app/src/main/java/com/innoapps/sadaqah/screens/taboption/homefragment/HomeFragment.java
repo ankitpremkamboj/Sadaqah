@@ -11,12 +11,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.innoapps.sadaqah.R;
 import com.innoapps.sadaqah.screens.taboption.homefragment.model.HomeModel;
 import com.innoapps.sadaqah.screens.taboption.homefragment.presenter.HomePresenter;
 import com.innoapps.sadaqah.screens.taboption.homefragment.presenter.HomePresenterImpl;
 import com.innoapps.sadaqah.screens.taboption.homefragment.view.HomeView;
+import com.innoapps.sadaqah.utils.SnackNotify;
 
 import java.util.ArrayList;
 
@@ -36,6 +40,10 @@ public class HomeFragment extends Fragment implements HomeView {
      LinearLayout lay;*/
     HomePresenter homePresenter;
     HomeAdapter homeAdapter;
+    @InjectView(R.id.coordinateLayout)
+    RelativeLayout coordinateLayout;
+    @InjectView(R.id.adView)
+    AdView adView;
 
     ArrayList<HomeModel.Datum> datumArrayList;
 
@@ -45,23 +53,30 @@ public class HomeFragment extends Fragment implements HomeView {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
 
         ButterKnife.inject(this, view);
-
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        adView.loadAd(adRequest);
+        loadAds();
         // setFont();
         return view;
 
     }
-/*
-    @OnClick(R.id.lay)
-    public void dialog() {
-        showDialog();
-    }*/
-
-    private void showDialog() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.home_diaolog);
 
 
-        dialog.show();
+    private void loadAds() {
+
+        try {
+
+            AdRequest adRequest = new AdRequest.Builder()
+                    //                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("BC66CD84AE30139003DB301E2AB6525F")
+                    .build();
+
+            adView.loadAd(adRequest);
+            // Load ads into Interstitial Ads
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -77,7 +92,7 @@ public class HomeFragment extends Fragment implements HomeView {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             ///   showDialog();
+                ///   showDialog();
             }
         });
 
@@ -92,7 +107,7 @@ public class HomeFragment extends Fragment implements HomeView {
     public void getHomeListSuccessfull(ArrayList<HomeModel.Datum> datumArrayList) {
 
         this.datumArrayList = datumArrayList;
-        homeAdapter = new HomeAdapter(getActivity(), datumArrayList);
+        homeAdapter = new HomeAdapter(getActivity(), datumArrayList, homePresenter);
         gridView.setAdapter(homeAdapter);
 
     }
@@ -100,5 +115,36 @@ public class HomeFragment extends Fragment implements HomeView {
     @Override
     public void getHomeListUnSuccessful(String message) {
 
+        SnackNotify.showMessage(message, coordinateLayout);
+
+    }
+
+    @Override
+    public void homeInternetError() {
+        SnackNotify.showMessage(getString(R.string.internet_check), coordinateLayout);
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 }

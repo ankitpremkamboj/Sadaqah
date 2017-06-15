@@ -25,9 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-               /* Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();*/
+
 
                 userSession = new UserSession(SplashActivity.this);
                 if (userSession.isUserLoggedIn()) {

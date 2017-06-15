@@ -44,6 +44,7 @@ public class SignUpPresenterImpl implements SignUpPresenter {
             callSignupMethod(activity, signUpView, name, email, password, profile_image);
         } catch (ApiAdapter.NoInternetException e) {
             e.printStackTrace();
+            signUpView.onSignUpInternetError();
 
         }
     }

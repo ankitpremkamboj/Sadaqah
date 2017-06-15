@@ -17,9 +17,9 @@ public interface EditProfileView {
 
     void onSignUpImageError(String profileImage);
 
-    void onSignUpInternetError();
+    void onInternetError();
 
-    void onSignUpSuccessful(String message);
+    void onEditProfileSuccessful(String message);
 
     void onSignUpUnSuccessful(String msg);
 }

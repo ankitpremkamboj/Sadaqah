@@ -31,6 +31,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +48,7 @@ import com.innoapps.sadaqah.screens.signup.SignUpActivity;
 import com.innoapps.sadaqah.utils.AppConstant;
 import com.innoapps.sadaqah.utils.AppFonts;
 import com.innoapps.sadaqah.utils.GlideCircleTransform;
+import com.innoapps.sadaqah.utils.SnackNotify;
 import com.innoapps.sadaqah.utils.UserSession;
 import com.innoapps.sadaqah.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -76,6 +78,8 @@ public class EditProfileActivity extends AppCompatActivity implements UserDetail
     Button btn_save;
     @InjectView(R.id.txt_change)
     TextView txt_change;
+    @InjectView(R.id.coordinateLayout)
+    LinearLayout coordinateLayout;
     UserDetailPresenter userDetailPresenter;
     UserSession userSession;
 
@@ -551,21 +555,24 @@ public class EditProfileActivity extends AppCompatActivity implements UserDetail
 
     @Override
     public void onNameError(String name) {
-
+        Utils.showError(input_password, name, this);
     }
 
     @Override
     public void onEmailError(String name) {
+        Utils.showError(input_password, name, this);
 
     }
 
     @Override
     public void onValidEmailError(String name) {
+        Utils.showError(input_password, name, this);
 
     }
 
     @Override
     public void onPasswordError(String name) {
+        Utils.showError(input_password, name, this);
 
     }
 
@@ -575,17 +582,20 @@ public class EditProfileActivity extends AppCompatActivity implements UserDetail
     }
 
     @Override
-    public void onSignUpInternetError() {
-
+    public void onInternetError() {
+        SnackNotify.showMessage(getString(R.string.internet_check), coordinateLayout);
     }
 
     @Override
-    public void onSignUpSuccessful(String message) {
+    public void onEditProfileSuccessful(String message) {
+        userSession.profileRefresh(true);
+        finish();
 
     }
 
     @Override
     public void onSignUpUnSuccessful(String msg) {
+        SnackNotify.showMessage(msg, coordinateLayout);
 
     }
 }

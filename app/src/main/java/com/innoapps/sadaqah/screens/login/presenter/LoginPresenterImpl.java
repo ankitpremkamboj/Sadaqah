@@ -39,6 +39,7 @@ public class LoginPresenterImpl implements LoginPresenter {
             callLoginMethod(email, password, activity, loginView);
         } catch (ApiAdapter.NoInternetException e) {
             e.printStackTrace();
+            loginView.onLoginInternetError();
 
         }
 

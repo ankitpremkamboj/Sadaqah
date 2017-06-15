@@ -44,6 +44,7 @@ public class EditProfilePresenterImpl implements EditProfilePresenter {
             callSignupMethod(activity, editProfileView, name, email, password, profile_image);
         } catch (ApiAdapter.NoInternetException e) {
             e.printStackTrace();
+            editProfileView.onInternetError();
 
         }
     }
@@ -87,16 +88,16 @@ public class EditProfilePresenterImpl implements EditProfilePresenter {
                     //getting whole data from response
                     EditProfileModel userProfileModel = response.body();
 
-                    /*String message = userProfileModel.getMessage();
+                    String message = userProfileModel.getMessage();
 
                     if (userProfileModel.getCode() == 0) {
 
-                        signUpView.onSignUpSuccessful(message);
+                        signUpView.onEditProfileSuccessful(message);
 
 
                     } else {
                         signUpView.onSignUpUnSuccessful(message);
-                    }*/
+                    }
                 } catch (NullPointerException e) {
                     signUpView.onSignUpUnSuccessful(activity.getString(R.string.server_error));
                 }
@@ -127,10 +128,7 @@ public class EditProfilePresenterImpl implements EditProfilePresenter {
             editProfileView.onValidEmailError(activity.getString(R.string.invalid_email));
 
             return false;
-        } else if (TextUtils.isEmpty(password)) {
-            editProfileView.onPasswordError(activity.getString(R.string.empty_password));
-            return false;
-        } else {
+        }  else {
             return true;
         }
     }

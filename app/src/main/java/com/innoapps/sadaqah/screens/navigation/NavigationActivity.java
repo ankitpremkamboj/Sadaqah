@@ -90,6 +90,15 @@ public class NavigationActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (userSession.isProRefresh()) {
+            userSession.profileRefresh(false);
+            userDetailPresenter.gettingUserDetails(this, this, userSession.getUserID());
+        }
+    }
+
     public void manageHeaderLayout() {
 
         //Adding the tabs using addTab() method

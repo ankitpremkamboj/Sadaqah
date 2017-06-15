@@ -35,7 +35,7 @@
     <string name="txt_yes">نعم</string>
     <string name="txt_no">لا</string>
     <string name="server_error">الخادم لا يستجيب.</string>
-    <string name="rs">التمرير</string>
+    <string name="rs">درهم</string>
     <string name="reg_name">الإسم</string>
     <string name="reg_login">هل أنت مستخدم بالفعل؟</string>
     <string name="reg_allready_user">تسجيل الدخول</string>
@@ -46,5 +46,12 @@
     <string name="save_profile">حفظ الملف الشخصي</string>
     <string name="change">تغيير الرقم السري</string>
     <string name="facebook_app_id">112472986025421</string>
+    <string name="edt_profile">الملف الشخصي</string>
+    <string name="internet_check">لا يتوفر اتصال بالإنترنت</string>
+
+    <!-- AdMob ad unit IDs -->
+    <string name="banner_home_footer">ca-app-pub-8165423984347142~8979805511</string>
+    <!--<string name="interstitial_full_screen">ca-app-pub-0664570763252260/1769900428</string>-->
+
 
 </resources>

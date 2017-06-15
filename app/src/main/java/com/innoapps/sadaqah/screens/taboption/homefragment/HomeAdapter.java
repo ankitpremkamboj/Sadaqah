@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.innoapps.sadaqah.R;
 import com.innoapps.sadaqah.screens.taboption.homefragment.model.HomeModel;
+import com.innoapps.sadaqah.screens.taboption.homefragment.presenter.HomePresenter;
 import com.innoapps.sadaqah.utils.AppFonts;
+import com.innoapps.sadaqah.utils.UserSession;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -31,10 +33,14 @@ public class HomeAdapter extends BaseAdapter {
     Context context;
     ArrayList<HomeModel.Datum> datumArrayList;
     DisplayImageOptions options;
+    HomePresenter homePresenter;
+    UserSession userSession;
 
-    public HomeAdapter(Context context, ArrayList<HomeModel.Datum> datumArrayList) {
+    public HomeAdapter(Context context, ArrayList<HomeModel.Datum> datumArrayList, HomePresenter homePresenter) {
         this.context = context;
         this.datumArrayList = datumArrayList;
+        this.homePresenter = homePresenter;
+        userSession = new UserSession(context);
 
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.login_logo)
@@ -90,16 +96,16 @@ public class HomeAdapter extends BaseAdapter {
         try {
 
             setFont(viewHolder);
-            String _id = datumArrayList.get(pos).getId();
+            final String _id = datumArrayList.get(pos).getId();
             String _provider = datumArrayList.get(pos).getProvider();
             String _donation_type = datumArrayList.get(pos).getDonationType();
-            String _amount = datumArrayList.get(pos).getAmount();
+            final  String _amount = datumArrayList.get(pos).getAmount();
             final String _title = datumArrayList.get(pos).getTitle();
             String _logo = datumArrayList.get(pos).getImage();
             //String _report = datumArrayList.get(pos).getReport();
 
             if (!_provider.isEmpty() && _provider != null) {
-                viewHolder.txt_company_name.setText(_provider);
+                viewHolder.txt_company_name.setText(_title);
             } else {
                 viewHolder.txt_company_name.setText("N/A");
             }
@@ -171,7 +177,7 @@ public class HomeAdapter extends BaseAdapter {
                     //int tag = Integer.parseInt(v.getTag().toString());
                     //HomeModel.Datum datum = datumArrayList.get(tag);
 
-                    showDialog(_title);
+                    showDialog(_title, _amount, _id);
 
                 }
             });
@@ -184,7 +190,7 @@ public class HomeAdapter extends BaseAdapter {
 
         viewHolder.txt_company_name.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_SEMIBOLD));
         viewHolder.txt_company_charity.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
-        viewHolder.txt_curency.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_BOLD));
+        viewHolder.txt_curency.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
         viewHolder.txt_rs.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_BOLD));
         viewHolder.txt_msg.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
 
@@ -212,7 +218,7 @@ public class HomeAdapter extends BaseAdapter {
         }
     }
 
-    private void showDialog(String title) {
+    private void showDialog(String title, final String amount, final String id) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.home_diaolog);
         TextView txt_title = (TextView) dialog.findViewById(R.id.txt_title);
@@ -229,6 +235,15 @@ public class HomeAdapter extends BaseAdapter {
         } else {
             txt_title.setText("N/A");
         }
+
+        txt_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               // homePresenter.callAddDonation(userSession.getUserID(), id, amount);
+                dialog.dismiss();
+            }
+        });
         dialog.show();
 
     }

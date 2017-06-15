@@ -33,6 +33,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ import com.innoapps.sadaqah.screens.signup.view.SignUpView;
 import com.innoapps.sadaqah.utils.AppConstant;
 import com.innoapps.sadaqah.utils.AppFonts;
 import com.innoapps.sadaqah.utils.GlideCircleTransform;
+import com.innoapps.sadaqah.utils.SnackNotify;
 import com.innoapps.sadaqah.utils.Utils;
 
 import java.io.File;
@@ -76,6 +78,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     TextView txt_new_user_sign_up;
     @InjectView(R.id.user_image_layout)
     RelativeLayout user_image_layout;
+    @InjectView(R.id.coordinateLayout)
+    LinearLayout coordinateLayout;
+
     private String _name, _email, _password, _signupImage = "";
     SignUpPresenter signUpPresenter;
 
@@ -179,6 +184,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     //Internet check
     @Override
     public void onSignUpInternetError() {
+        SnackNotify.showMessage(getString(R.string.internet_check), coordinateLayout);
 
     }
 
@@ -195,6 +201,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void onSignUpUnSuccessful(String msg) {
+        SnackNotify.showMessage(msg, coordinateLayout);
 
     }
 

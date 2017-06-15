@@ -12,4 +12,6 @@ public interface HomePresenter {
 
     void callGetHomeList(String userID, Activity activity, HomeView homeView);
 
+    void callAddDonation(String userID, String donationID, String amount);
+
 }

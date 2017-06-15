@@ -24,10 +24,18 @@ import retrofit2.http.Query;
  */
 public interface APIService {
 
-    //----------------------------------------------------------------Login------------------------------------------------------------------------------------------------------------//
     @POST("donationlist")
     @FormUrlEncoded
     Call<HomeModel> homeList(@Field("user_id") String userID);
+/*-----------------------------------------Add Donation-----------------------------------------------------*/
+    @POST("addDonation")
+    @FormUrlEncoded
+    Call<HomeModel> addDonationAmount(@Field("user_id") String userID,@Field("donation_id") String donation_id ,@Field("amount") String amount);
+
+    @POST("report")
+    @FormUrlEncoded
+    Call<HomeModel> report(@Field("user_id") String userID,@Field("donation_id") String donation_id ,@Field("report") String report);
+
 
     // Registration
     @POST("userregistration")
@@ -54,7 +62,5 @@ public interface APIService {
     @POST("profileupdate")
     @Multipart
     Call<EditProfileModel> updateProfile(@Part("firstname") RequestBody fname, @Part("email") RequestBody email, @Part("password") RequestBody password, @Part MultipartBody.Part imageFile,@Part("user_id") RequestBody userID);
-
-
 
 }

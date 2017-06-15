@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ import com.innoapps.sadaqah.screens.navigation.NavigationActivity;
 import com.innoapps.sadaqah.screens.signup.SignUpActivity;
 import com.innoapps.sadaqah.utils.AppFonts;
 import com.innoapps.sadaqah.utils.CheckPermissions;
+import com.innoapps.sadaqah.utils.SnackNotify;
 import com.innoapps.sadaqah.utils.Utils;
 
 import org.json.JSONObject;
@@ -83,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
     RelativeLayout lay_fb;
     @InjectView(R.id.lay_google)
     RelativeLayout lay_google;
+    @InjectView(R.id.coordinateLayout)
+    LinearLayout coordinateLayout;
 
     LoginPresenter loginPresenter;
     private CallbackManager callbackManager;
@@ -152,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
 
     @OnClick(R.id.lay_google)
     public void googleLogin() {
-    openGoogleLogin();
+        openGoogleLogin();
     }
 
     private void openGoogleLogin() {
@@ -214,13 +218,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
 
     @Override
     public void onLoginUnSuccessful(String msg) {
+        SnackNotify.showMessage(msg, coordinateLayout);
 
-//
 
     }
 
     @Override
     public void onLoginInternetError() {
+        SnackNotify.showMessage(getString(R.string.internet_check), coordinateLayout);
 
     }
 
@@ -315,8 +320,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
 
             Log.e(TAG, "Name: " + personName + ", email: " + email
                     + ", Image: " + personPhotoUrl);
-/*
-            txtName.setText(personName);
+
+/*          txtName.setText(personName);
             txtEmail.setText(email);
             Glide.with(getApplicationContext()).load(personPhotoUrl)
                     .thumbnail(0.5f)
@@ -327,7 +332,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
             //updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
-           // updateUI(false);
+            // updateUI(false);
         }
     }
 
