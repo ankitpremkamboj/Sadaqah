@@ -92,11 +92,12 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/img_card"
+                    android:id="@+id/img_report"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:padding="5dp"
                     android:src="@mipmap/card_report" />
             </RelativeLayout>
 
@@ -131,17 +132,17 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/msg_logo"
                     android:padding="2dp"
-                    android:text="411"
+                    android:text="4411"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <ImageView
-                    android:id="@+id/img_donation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/img_provider"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/txt_msg"
-                    android:src="@mipmap/card_report" />
+                    android:src="@drawable/ic_etisalat" />
 
                 <ImageView
                     android:id="@+id/img_arrow"

@@ -6,24 +6,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
-    <GridView
-        android:id="@+id/gridView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:clickable="true"
-        android:drawSelectorOnTop="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:horizontalSpacing="1dp"
-        android:numColumns="2"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollbarSize="0dip"
-        android:scrollbarStyle="outsideInset"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp"
-        android:visibility="visible" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/adView">
+
+    </android.support.v7.widget.RecyclerView>
+
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -32,4 +22,6 @@
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
+
+
 </RelativeLayout>

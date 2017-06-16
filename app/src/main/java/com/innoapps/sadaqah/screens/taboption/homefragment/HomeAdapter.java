@@ -1,13 +1,17 @@
 package com.innoapps.sadaqah.screens.taboption.homefragment;
 
 import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,18 +29,18 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.util.ArrayList;
 
 /**
- * Created by ankit on 6/7/2017.
+ * Created by ankit on 6/16/2017.
  */
 
-public class HomeAdapter extends BaseAdapter {
-
-    Context context;
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder> {
+    //Context context;
     ArrayList<HomeModel.Datum> datumArrayList;
     DisplayImageOptions options;
     HomePresenter homePresenter;
     UserSession userSession;
+    FragmentActivity context;
 
-    public HomeAdapter(Context context, ArrayList<HomeModel.Datum> datumArrayList, HomePresenter homePresenter) {
+    public HomeAdapter(FragmentActivity context, ArrayList<HomeModel.Datum> datumArrayList, HomePresenter homePresenter) {
         this.context = context;
         this.datumArrayList = datumArrayList;
         this.homePresenter = homePresenter;
@@ -53,55 +57,26 @@ public class HomeAdapter extends BaseAdapter {
 
     }
 
-
     @Override
-    public int getCount() {
-        return datumArrayList.size();
+    public HomeAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.home_fragment_item, null);
+
+        return new Holder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflator;
-        ViewHolder viewHolder;
-        if (convertView == null) {
-            inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflator.inflate(R.layout.home_fragment_item, null);
-            viewHolder = new ViewHolder(convertView);
-            //convertView.setTag(viewHolder.rl_dialog);
-            convertView.setTag(viewHolder);
-            // convertView.setTag(viewHolder.rl_dialog);
-        } else {
-
-            viewHolder = (ViewHolder) convertView.getTag();
-
-        }
-        populateData(viewHolder, position);
-
-        return convertView;
-
-    }
-
-
-    public void populateData(ViewHolder viewHolder, final int pos) {
+    public void onBindViewHolder(Holder viewHolder, int pos) {
         try {
 
             setFont(viewHolder);
             final String _id = datumArrayList.get(pos).getId();
             String _provider = datumArrayList.get(pos).getProvider();
             String _donation_type = datumArrayList.get(pos).getDonationType();
-            final  String _amount = datumArrayList.get(pos).getAmount();
+            final String _amount = datumArrayList.get(pos).getAmount();
             final String _title = datumArrayList.get(pos).getTitle();
             String _logo = datumArrayList.get(pos).getImage();
+            final String _donationCode = datumArrayList.get(pos).getDonationCode();
+
             //String _report = datumArrayList.get(pos).getReport();
 
             if (!_provider.isEmpty() && _provider != null) {
@@ -118,15 +93,31 @@ public class HomeAdapter extends BaseAdapter {
             if (!_amount.isEmpty() && _amount != null) {
 
                 viewHolder.txt_rs.setText(_amount);
-                viewHolder.txt_msg.setText(_amount);
+                // viewHolder.txt_msg.setText(_amount);
             } else {
-                viewHolder.txt_msg.setText("N/A");
+                viewHolder.txt_rs.setText("N/A");
             }
             if (!_title.isEmpty() && _title != null) {
 
                 // viewHolder.txt_rs.setText(_title);
             }
 
+            if (!_provider.isEmpty()) {
+                if (_provider.equalsIgnoreCase("du")) {
+
+                    viewHolder.img_provider.setImageResource(R.drawable.ic_du_logo);
+
+                } else if (_provider.equalsIgnoreCase("Etisalat ")) {
+                    viewHolder.img_provider.setImageResource(R.drawable.ic_etisalat);
+
+                }
+            }
+
+            if (!_donationCode.isEmpty() && _donationCode != null) {
+                viewHolder.txt_msg.setText(_donationCode);
+            } else {
+                viewHolder.txt_msg.setText("N/A");
+            }
 
             try {
 
@@ -147,6 +138,13 @@ public class HomeAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
 
+            viewHolder.img_report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showReportDialog(_id);
+
+                }
+            });
 
             //  Picasso.with(context).load(_logo).placeholder(R.mipmap.login_logo).centerCrop().into(viewHolder.logo_img);
 /*
@@ -177,7 +175,7 @@ public class HomeAdapter extends BaseAdapter {
                     //int tag = Integer.parseInt(v.getTag().toString());
                     //HomeModel.Datum datum = datumArrayList.get(tag);
 
-                    showDialog(_title, _amount, _id);
+                    showDialog(_donationCode, _id, _amount);
 
                 }
             });
@@ -186,7 +184,7 @@ public class HomeAdapter extends BaseAdapter {
         }
     }
 
-    private void setFont(ViewHolder viewHolder) {
+    private void setFont(Holder viewHolder) {
 
         viewHolder.txt_company_name.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_SEMIBOLD));
         viewHolder.txt_company_charity.setTypeface(Typeface.createFromAsset(context.getAssets(), AppFonts.MONTSERRAT_ARABIC_REGULAR));
@@ -196,16 +194,24 @@ public class HomeAdapter extends BaseAdapter {
 
     }
 
-    static class ViewHolder {
-        private ImageView logo_img, img_donation, img_arrow;
+
+    @Override
+    public int getItemCount() {
+        return datumArrayList.size();
+    }
+
+    public class Holder extends RecyclerView.ViewHolder {
+        private ImageView logo_img, img_provider, img_arrow, img_report;
         private TextView txt_company_name, txt_company_charity, txt_curency, txt_rs, txt_msg;
         private RelativeLayout rl_dialog;
 
-        ViewHolder(View view) {
+        public Holder(View view) {
+            super(view);
 
             logo_img = (ImageView) view.findViewById(R.id.logo_img);
-            img_donation = (ImageView) view.findViewById(R.id.img_donation);
+            img_provider = (ImageView) view.findViewById(R.id.img_provider);
             img_arrow = (ImageView) view.findViewById(R.id.img_arrow);
+            img_report = (ImageView) view.findViewById(R.id.img_report);
 
             rl_dialog = (RelativeLayout) view.findViewById(R.id.rl_dialog);
             txt_company_name = (TextView) view.findViewById(R.id.txt_company_name);
@@ -216,9 +222,12 @@ public class HomeAdapter extends BaseAdapter {
 
 
         }
+
+
     }
 
-    private void showDialog(String title, final String amount, final String id) {
+
+    private void showDialog(final String donationCode, final String donationId, final String amount) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.home_diaolog);
         TextView txt_title = (TextView) dialog.findViewById(R.id.txt_title);
@@ -230,17 +239,49 @@ public class HomeAdapter extends BaseAdapter {
                 dialog.dismiss();
             }
         });
-        if (!title.isEmpty() && title != null) {
+      /*  if (!title.isEmpty() && title != null) {
             txt_title.setText(title);
         } else {
             txt_title.setText("N/A");
-        }
+        }*/
 
         txt_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               // homePresenter.callAddDonation(userSession.getUserID(), id, amount);
+                homePresenter.callAddDonation(userSession.getUserID(), donationId, amount);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("smsto:" + donationCode)); // This ensures only SMS apps respond
+                //  intent.putExtra("sms_body", "");
+                if (intent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(intent);
+                }
+
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+    }
+
+
+    private void showReportDialog(final String id) {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.report_diaolog);
+        TextView txt_yes = (TextView) dialog.findViewById(R.id.txt_yes);
+        TextView txt_no = (TextView) dialog.findViewById(R.id.txt_no);
+        txt_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        txt_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                homePresenter.callReport(userSession.getUserID(), id);
                 dialog.dismiss();
             }
         });

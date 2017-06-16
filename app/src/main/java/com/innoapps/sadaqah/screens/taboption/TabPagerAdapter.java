@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.innoapps.sadaqah.screens.setting.SettingFragment;
 import com.innoapps.sadaqah.screens.taboption.homefragment.HomeFragment;
 
 /**
@@ -29,7 +30,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 HomeFragment tab1 = new HomeFragment();
                 return tab1;
             case 1:
-                HomeFragment tab2 = new HomeFragment();
+                SettingFragment tab2 = new SettingFragment();
                 return tab2;
             case 2:
                 HomeFragment tab3 = new HomeFragment();

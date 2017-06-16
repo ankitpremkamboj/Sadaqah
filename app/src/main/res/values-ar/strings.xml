@@ -52,6 +52,11 @@
     <!-- AdMob ad unit IDs -->
     <string name="banner_home_footer">ca-app-pub-8165423984347142~8979805511</string>
     <!--<string name="interstitial_full_screen">ca-app-pub-0664570763252260/1769900428</string>-->
+    <!--Setting-->
+    <string name="setting_aboutkhyr">عن "صدقة"</string>
+    <string name="pushnotification">خدمة الإشعارات</string>
+    <string name="term_condition">الشروط والأحكام</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
 
 
 </resources>

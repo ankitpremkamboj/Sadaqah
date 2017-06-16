@@ -1,22 +1,23 @@
 package com.innoapps.sadaqah.screens.taboption.homefragment;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.innoapps.sadaqah.R;
+import com.innoapps.sadaqah.screens.navigation.NavigationActivity;
 import com.innoapps.sadaqah.screens.taboption.homefragment.model.HomeModel;
+import com.innoapps.sadaqah.screens.taboption.homefragment.model.ReportModel;
 import com.innoapps.sadaqah.screens.taboption.homefragment.presenter.HomePresenter;
 import com.innoapps.sadaqah.screens.taboption.homefragment.presenter.HomePresenterImpl;
 import com.innoapps.sadaqah.screens.taboption.homefragment.view.HomeView;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 /**
  * Created by ankit on 6/7/2017.
@@ -34,8 +34,7 @@ import butterknife.OnClick;
 
 public class HomeFragment extends Fragment implements HomeView {
 
-    @InjectView(R.id.gridView)
-    GridView gridView;
+
     /* @InjectView(R.id.lay)
      LinearLayout lay;*/
     HomePresenter homePresenter;
@@ -44,6 +43,8 @@ public class HomeFragment extends Fragment implements HomeView {
     RelativeLayout coordinateLayout;
     @InjectView(R.id.adView)
     AdView adView;
+    @InjectView(R.id.recycler_view)
+    RecyclerView recycler_view;
 
     ArrayList<HomeModel.Datum> datumArrayList;
 
@@ -89,12 +90,6 @@ public class HomeFragment extends Fragment implements HomeView {
 
 
         callApi();
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ///   showDialog();
-            }
-        });
 
 
     }
@@ -107,9 +102,9 @@ public class HomeFragment extends Fragment implements HomeView {
     public void getHomeListSuccessfull(ArrayList<HomeModel.Datum> datumArrayList) {
 
         this.datumArrayList = datumArrayList;
-        homeAdapter = new HomeAdapter(getActivity(), datumArrayList, homePresenter);
-        gridView.setAdapter(homeAdapter);
-
+        HomeAdapter homeAd = new HomeAdapter(getActivity(), datumArrayList, homePresenter);
+        recycler_view.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recycler_view.setAdapter(homeAd);
     }
 
     @Override
@@ -118,6 +113,8 @@ public class HomeFragment extends Fragment implements HomeView {
         SnackNotify.showMessage(message, coordinateLayout);
 
     }
+
+
 
     @Override
     public void homeInternetError() {

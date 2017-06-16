@@ -31,8 +31,8 @@
     <string name="tab_setting">English version</string>
     <string name="tab_contact">English version</string>
     <string name="dialog_text">English version</string>
-    <string name="txt_yes">English version</string>
-    <string name="txt_no">English version</string>
+    <string name="txt_yes">Yes</string>
+    <string name="txt_no">NO</string>
     <string name="server_error">English version</string>
     <string name="rs">English version</string>
     <string name="reg_name">English version</string>
@@ -42,7 +42,7 @@
     <string name="empty_email">English version</string>
     <string name="invalid_email">English version</string>
     <string name="empty_password">English version</string>
-    <string name="save_profile">English version</string>
+    <string name="save_profile">Save Profile</string>
     <string name="change">English version</string>
 
     <string name="facebook_app_id">112472986025421</string>
@@ -52,8 +52,10 @@
     <!-- AdMob ad unit IDs -->
     <string name="banner_home_footer">ca-app-pub-8165423984347142~8979805511</string>
     <!--<string name="interstitial_full_screen">ca-app-pub-0664570763252260/1769900428</string>-->
-
-
-
+    <!--Setting-->
+    <string name="setting_aboutkhyr">About Khayr</string>
+    <string name="pushnotification">Push Notification</string>
+    <string name="term_condition">Term and condition</string>
+    <string name="privacy_policy">Privacy and policy</string>
 
 </resources>

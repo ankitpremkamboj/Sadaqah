@@ -77,7 +77,7 @@ public class EditProfilePresenterImpl implements EditProfilePresenter {
         }
 
 
-        callLogin = ApiAdapter.getApiService().updateProfile(nameRequest, emailRequest, passwordRequest, imageFileBody, userIdRequest);
+        callLogin = ApiAdapter.getApiService().updateProfile(nameRequest, emailRequest, imageFileBody, userIdRequest);
 
         callLogin.enqueue(new Callback<EditProfileModel>() {
             @Override

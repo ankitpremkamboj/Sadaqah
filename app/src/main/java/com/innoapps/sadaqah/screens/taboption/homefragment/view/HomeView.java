@@ -1,6 +1,7 @@
 package com.innoapps.sadaqah.screens.taboption.homefragment.view;
 
 import com.innoapps.sadaqah.screens.taboption.homefragment.model.HomeModel;
+import com.innoapps.sadaqah.screens.taboption.homefragment.model.ReportModel;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,8 @@ public interface HomeView {
     void getHomeListSuccessfull(ArrayList<HomeModel.Datum> datumArrayList);
 
     void getHomeListUnSuccessful(String message);
+
+   // void getReoprtSuccessful(ReportModel reportModel);
 
     void homeInternetError();
 

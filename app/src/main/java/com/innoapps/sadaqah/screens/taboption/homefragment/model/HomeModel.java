@@ -63,6 +63,9 @@ public class HomeModel {
         @SerializedName("id")
         @Expose
         private String id;
+        @SerializedName("donation_code")
+        @Expose
+        private String donationCode;
         @SerializedName("title")
         @Expose
         private String title;
@@ -85,6 +88,14 @@ public class HomeModel {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getDonationCode() {
+            return donationCode;
+        }
+
+        public void setDonationCode(String donationCode) {
+            this.donationCode = donationCode;
         }
 
         public String getTitle() {

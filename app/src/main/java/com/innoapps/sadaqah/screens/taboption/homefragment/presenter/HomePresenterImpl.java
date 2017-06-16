@@ -6,6 +6,7 @@ import com.innoapps.sadaqah.R;
 import com.innoapps.sadaqah.helper.Progress;
 import com.innoapps.sadaqah.requestresponse.ApiAdapter;
 import com.innoapps.sadaqah.screens.taboption.homefragment.model.HomeModel;
+import com.innoapps.sadaqah.screens.taboption.homefragment.model.ReportModel;
 import com.innoapps.sadaqah.screens.taboption.homefragment.view.HomeView;
 
 import java.util.ArrayList;
@@ -43,11 +44,66 @@ public class HomePresenterImpl implements HomePresenter {
 
         try {
             ApiAdapter.getInstance(activity);
-            addDonation(userID,donationID,amount);
+            addDonation(userID, donationID, amount);
         } catch (ApiAdapter.NoInternetException e) {
             e.printStackTrace();
             homeView.homeInternetError();
         }
+
+    }
+
+    @Override
+    public void callReport(String userID, String donationID) {
+
+        try {
+            ApiAdapter.getInstance(activity);
+            callReportRequest(userID, donationID);
+        } catch (ApiAdapter.NoInternetException e) {
+            e.printStackTrace();
+            homeView.homeInternetError();
+        }
+    }
+
+    private void callReportRequest(String userID, String donationID) {
+        Progress.start(activity);
+        Call<ReportModel> callEvent;
+
+
+        callEvent = ApiAdapter.getApiService().report(userID, donationID, "1");
+
+        callEvent.enqueue(new Callback<ReportModel>() {
+            @Override
+            public void onResponse(Call<ReportModel> call, Response<ReportModel> response) {
+
+                Progress.stop();
+                try {
+                    //getting whole data from response
+                    ReportModel reportModel = response.body();
+
+                    ReportModel.Data data = reportModel.getData();
+
+                    String message = reportModel.getMessage();
+
+//techminds
+                    if (reportModel.getCode() == 0) {
+                        //  homeView.getHomeListSuccessfull(homeLists);
+
+                    } else {
+                        homeView.getHomeListUnSuccessful(message);
+                    }
+                } catch (NullPointerException e) {
+                    homeView.getHomeListUnSuccessful(activity.getString(R.string.server_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReportModel> call, Throwable t) {
+                Progress.stop();
+                homeView.getHomeListUnSuccessful(activity.getString(R.string.server_error));
+
+            }
+
+        });
 
     }
 
@@ -57,7 +113,7 @@ public class HomePresenterImpl implements HomePresenter {
         Call<HomeModel> callEvent;
 
 
-        callEvent = ApiAdapter.getApiService().addDonationAmount(userID,donationID,amount);
+        callEvent = ApiAdapter.getApiService().addDonationAmount(userID, donationID, amount);
 
         callEvent.enqueue(new Callback<HomeModel>() {
             @Override

@@ -14,4 +14,5 @@ public interface HomePresenter {
 
     void callAddDonation(String userID, String donationID, String amount);
 
+    void callReport(String userID, String donationID);
 }

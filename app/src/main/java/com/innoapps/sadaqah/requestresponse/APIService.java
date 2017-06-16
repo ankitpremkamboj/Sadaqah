@@ -6,6 +6,7 @@ import com.innoapps.sadaqah.screens.login.model.LoginModel;
 import com.innoapps.sadaqah.screens.navigation.model.UserDetailModel;
 import com.innoapps.sadaqah.screens.signup.model.SignUpModel;
 import com.innoapps.sadaqah.screens.taboption.homefragment.model.HomeModel;
+import com.innoapps.sadaqah.screens.taboption.homefragment.model.ReportModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -34,7 +35,7 @@ public interface APIService {
 
     @POST("report")
     @FormUrlEncoded
-    Call<HomeModel> report(@Field("user_id") String userID,@Field("donation_id") String donation_id ,@Field("report") String report);
+    Call<ReportModel> report(@Field("user_id") String userID, @Field("donation_id") String donation_id , @Field("report") String report);
 
 
     // Registration
@@ -61,6 +62,6 @@ public interface APIService {
     // Update profile
     @POST("profileupdate")
     @Multipart
-    Call<EditProfileModel> updateProfile(@Part("firstname") RequestBody fname, @Part("email") RequestBody email, @Part("password") RequestBody password, @Part MultipartBody.Part imageFile,@Part("user_id") RequestBody userID);
+    Call<EditProfileModel> updateProfile(@Part("firstname") RequestBody fname, @Part("email") RequestBody email,  @Part MultipartBody.Part imageFile,@Part("user_id") RequestBody userID);
 
 }
