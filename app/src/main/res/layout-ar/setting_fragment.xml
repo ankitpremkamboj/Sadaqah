@@ -67,12 +67,15 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/nav_slider_text" />
 
-            <Switch
+            <android.support.v7.widget.SwitchCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:padding="5dp" />
+                android:checked="false"
+                android:theme="@style/SCBSwitch"
+                />
 
+            <!--android:theme="@style/SCBSwitch"-->
 
         </LinearLayout>
 
