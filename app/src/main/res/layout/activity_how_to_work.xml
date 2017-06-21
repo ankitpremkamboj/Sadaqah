@@ -4,12 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/splash"
-    tools:context="com.innoapps.sadaqah.screens.splash.SplashActivity">
-
-   <!-- <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/splash" />-->
+    android:background="@color/alpha_black"
+    tools:context="com.innoapps.sadaqah.screens.howtowork.HowToWorkActivity">
 
 </RelativeLayout>

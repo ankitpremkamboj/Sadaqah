@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -22,7 +23,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.innoapps.sadaqah.R;
+import com.innoapps.sadaqah.screens.aboutkhayr.AboutKhayrActivity;
 import com.innoapps.sadaqah.screens.editprofile.EditProfileActivity;
+import com.innoapps.sadaqah.screens.howitwork.HowitworkActivity;
 import com.innoapps.sadaqah.screens.login.LoginActivity;
 import com.innoapps.sadaqah.screens.navigation.model.UserDetailModel;
 import com.innoapps.sadaqah.screens.navigation.presenter.UserDetailPresenter;
@@ -64,6 +67,10 @@ public class NavigationActivity extends AppCompatActivity
     TextView txt_email, txt_name, txt_home, txt_signup, txt_hou_to_use, txt_share_app, txt_rate_app, txt_news, txt_website, txt_logout;
     ImageView img_user, img_edit;
 
+    LinearLayout lay_how_to_use;
+    LinearLayout lay_khayr_news;
+    LinearLayout lay_share_app;
+    LinearLayout lay_website;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,13 +142,81 @@ public class NavigationActivity extends AppCompatActivity
         img_user = (ImageView) headerView.findViewById(R.id.img_user);
         img_edit = (ImageView) headerView.findViewById(R.id.img_edit);
         lay_home = (LinearLayout) headerView.findViewById(R.id.lay_home);
+        lay_how_to_use = (LinearLayout) headerView.findViewById(R.id.lay_how_to_use);
+        lay_khayr_news = (LinearLayout) headerView.findViewById(R.id.lay_khayr_news);
+        lay_share_app = (LinearLayout) headerView.findViewById(R.id.lay_share_app);
+        lay_website = (LinearLayout) headerView.findViewById(R.id.lay_website);
+        lay_website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer_layout.openDrawer(GravityCompat.START);
+                }
+                String url = "https://www.google.com";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        lay_share_app.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer_layout.openDrawer(GravityCompat.START);
+                }
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Hey, download this app!");
+                startActivity(shareIntent);
+
+            }
+        });
+        lay_khayr_news.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer_layout.openDrawer(GravityCompat.START);
+                }
+                Intent intent = new Intent(NavigationActivity.this, AboutKhayrActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        lay_how_to_use.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer_layout.openDrawer(GravityCompat.START);
+                }
+                Intent intent = new Intent(NavigationActivity.this, HowitworkActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         lay_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
-                startActivity(intent);
+
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer_layout.openDrawer(GravityCompat.START);
+                }
+
+                // Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -179,6 +254,8 @@ public class NavigationActivity extends AppCompatActivity
 
             }
         });
+
+
         setFont();
 
     }

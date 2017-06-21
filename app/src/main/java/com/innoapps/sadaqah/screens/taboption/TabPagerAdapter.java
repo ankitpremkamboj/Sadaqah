@@ -34,10 +34,10 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
                 SettingFragment tab2 = new SettingFragment();
                 return tab2;
             case 2:
-                ContactFragment tab3 = new ContactFragment();
+                SettingFragment tab3 = new SettingFragment();
                 return tab3;
             case 3:
-                HomeFragment tab4 = new HomeFragment();
+                ContactFragment tab4 = new ContactFragment();
                 return tab4;
             default:
                 return null;
