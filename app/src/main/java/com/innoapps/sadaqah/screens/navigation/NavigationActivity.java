@@ -121,7 +121,16 @@ public class NavigationActivity extends AppCompatActivity
         pager.setAdapter(mAdapter);
 
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(pager));
+        pager.setOffscreenPageLimit(4); // if you use 3 tabs
+        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.getTabAt(position).select();
+            }
+        });
+
+
+       tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(pager));
 
 
         View headerView = nav_view.inflateHeaderView(R.layout.nav_header_main);

@@ -12,24 +12,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
             android:text="لديك أي ملاحظة أو مقترح يسرنا"
             android:textColor="@color/black"
-
             android:textSize="32dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:text="fknhgvjhgfbjgrgb"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:text="لديك أي ملاحظة"
             android:textSize="14dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="130dp"
             android:orientation="horizontal">
 
             <TextView
@@ -38,23 +38,21 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:text="info@innoappstech.com"
                 android:textColor="@color/black"
-                android:textSize="12dp"
-
+                android:textSize="14dp"
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="ngfbbbnnbnbnnbnbbn"
                 android:visibility="invisible" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@drawable/mail" />
 
         </LinearLayout>
