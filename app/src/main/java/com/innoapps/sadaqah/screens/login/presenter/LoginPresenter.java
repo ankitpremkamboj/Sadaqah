@@ -11,4 +11,6 @@ import com.innoapps.sadaqah.screens.login.view.LoginView;
 public interface LoginPresenter {
 
     void validateLogin(String email, String password, Activity activity, LoginView loginView);
+
+    void socialLogin(String name, String email, String provider, String image, Activity activity, LoginView loginView);
 }

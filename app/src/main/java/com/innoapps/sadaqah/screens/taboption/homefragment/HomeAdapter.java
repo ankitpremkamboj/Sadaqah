@@ -105,10 +105,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder> {
             if (!_provider.isEmpty()) {
                 if (_provider.equalsIgnoreCase("du")) {
 
-                    viewHolder.img_provider.setImageResource(R.drawable.ic_du_logo);
+                    viewHolder.img_provider.setImageResource(R.mipmap.du);
 
                 } else if (_provider.equalsIgnoreCase("Etisalat ")) {
-                    viewHolder.img_provider.setImageResource(R.drawable.ic_etisalat);
+                    viewHolder.img_provider.setImageResource(R.mipmap.etisalat);
 
                 }
             }

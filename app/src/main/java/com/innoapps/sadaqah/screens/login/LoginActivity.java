@@ -36,6 +36,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.innoapps.sadaqah.R;
+import com.innoapps.sadaqah.screens.login.model.FbModel;
 import com.innoapps.sadaqah.screens.login.model.LoginModel;
 import com.innoapps.sadaqah.screens.login.presenter.LoginPresenter;
 import com.innoapps.sadaqah.screens.login.presenter.LoginPresenterImpl;
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
 
     private static final int RC_SIGN_IN = 007;
     private static final String TAG = LoginActivity.class.getSimpleName();
+    LoginView loginView;
 
 
     @Override
@@ -111,6 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
         ButterKnife.inject(this);
         loginPresenter = new LoginPresenterImpl();
         setFonts();
+        loginView = this;
         // fbkeyhash();
         FacebookSdk.sdkInitialize(getApplicationContext());
 
@@ -246,6 +249,33 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Googl
                         try {
                             Log.e("Response", "" + object);
                             //  ((LoginFragment) loginFragment).onLoginCompleted(object);
+
+                            FbModel fbModel = new FbModel();
+                           // String name = object.getString("name");
+                           // String email = object.getString("email");
+
+                            String image = "";
+
+
+
+                            try {
+                                String name = "", email = "";
+                                if (object.has("email")) {
+                                    email = object.getString("email");
+                                }
+                                if (object.has("name")) {
+                                    name = object.getString("name");
+                                }
+
+                                if (email != null && email.trim().length() > 0){
+
+                                }
+                                loginPresenter.socialLogin(name,email, "facebook", image, LoginActivity.this, loginView);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();

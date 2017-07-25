@@ -5,8 +5,10 @@ package com.innoapps.sadaqah.requestresponse;
  */
 public class Const {
 
-    public static String BASE_URL = "http://themezila.com/projects/asmd/v1/";
-  //  public static String BASE_URL = "http://innoappstech.com/event_program/api.php";
+    // public static String BASE_URL = "http://themezila.com/projects/asmd/v1/";
+    //  public static String BASE_URL = "http://innoappstech.com/event_program/api.php";
+
+    public static String BASE_URL = "http://skmaism.com/charity/v1/";
 
 
     //<---------------------------------------- Common Tags ----------------------------------------------->
@@ -42,18 +44,18 @@ public class Const {
     public static String MIN_PAY_SCALE = "MinimumPayScale";
     public static String MAX_PAY_SCALE = "MaximumPayScale";
     public static String MY_INTERVIEW_ID = "MyInterviewTemplateID";
-    public static String CONTACT_PERSON="ContactPerson";
-    public static String DESIGNATION="Designation";
-    public static String CONTACT_NUMBER="ContactNumber";
-    public static String IS_SHOW_CONTACT="IsShowContact";
+    public static String CONTACT_PERSON = "ContactPerson";
+    public static String DESIGNATION = "Designation";
+    public static String CONTACT_NUMBER = "ContactNumber";
+    public static String IS_SHOW_CONTACT = "IsShowContact";
 
 
     //<----------------------------------Search Job Seeker------------------------------------------------------------->
-    public static String LOCATION="Location";
-    public static String AREA_OF_EXPERTISE="AreaOfExpertise";
-    public static String FROM_YEARS_EXP="FromYearOfExperience";
-    public static String TO_YEARS_EXP="ToYearOfExperience";
-    public static String LOOKING_FOR_CHANGE="IsLookingForChange";
+    public static String LOCATION = "Location";
+    public static String AREA_OF_EXPERTISE = "AreaOfExpertise";
+    public static String FROM_YEARS_EXP = "FromYearOfExperience";
+    public static String TO_YEARS_EXP = "ToYearOfExperience";
+    public static String LOOKING_FOR_CHANGE = "IsLookingForChange";
 
     //<-------------------------------------------Notification ------------------------------------->
 
@@ -62,8 +64,7 @@ public class Const {
     //<-------------------------------------------Manage Jobs------------------------------------->
     public static String KEY_JOB_ID = "JobId";
     public static String KEY_CANDIDATE_ID = "CandidateId";
-    public static String KEY_FOLDER_ID =  "FolderId";
-
+    public static String KEY_FOLDER_ID = "FolderId";
 
 
 }

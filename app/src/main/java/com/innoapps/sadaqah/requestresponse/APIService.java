@@ -2,6 +2,7 @@ package com.innoapps.sadaqah.requestresponse;
 
 
 import com.innoapps.sadaqah.screens.editprofile.model.EditProfileModel;
+import com.innoapps.sadaqah.screens.history.model.HistoryModel;
 import com.innoapps.sadaqah.screens.login.model.LoginModel;
 import com.innoapps.sadaqah.screens.navigation.model.UserDetailModel;
 import com.innoapps.sadaqah.screens.signup.model.SignUpModel;
@@ -63,5 +64,18 @@ public interface APIService {
     @POST("profileupdate")
     @Multipart
     Call<EditProfileModel> updateProfile(@Part("firstname") RequestBody fname, @Part("email") RequestBody email,  @Part MultipartBody.Part imageFile,@Part("user_id") RequestBody userID);
+
+
+    //social login facebook and google
+
+    @POST("social")
+    @Multipart
+    Call<LoginModel> socialLogin(@Part("name") RequestBody name, @Part("email") RequestBody email,@Part("provider") RequestBody provider,  @Part MultipartBody.Part imageFile);
+
+
+    //Us
+    @POST("history")
+    @FormUrlEncoded
+    Call<HistoryModel> getHistoryDetails(@Field("user_id") String userID);
 
 }

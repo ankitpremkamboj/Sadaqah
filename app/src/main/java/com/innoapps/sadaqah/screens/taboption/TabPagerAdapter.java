@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.innoapps.sadaqah.screens.contact.ContactFragment;
+import com.innoapps.sadaqah.screens.history.HistoryFragment;
 import com.innoapps.sadaqah.screens.setting.SettingFragment;
 import com.innoapps.sadaqah.screens.taboption.homefragment.HomeFragment;
 
@@ -28,17 +29,17 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position) {
             case 0:
-                HomeFragment tab1 = new HomeFragment();
-                return tab1;
+                HomeFragment homeFragment = new HomeFragment();
+                return homeFragment;
             case 1:
-                SettingFragment tab2 = new SettingFragment();
-                return tab2;
+                HistoryFragment historyFragment = new HistoryFragment();
+                return historyFragment;
             case 2:
-                SettingFragment tab3 = new SettingFragment();
-                return tab3;
+                SettingFragment settingFragment = new SettingFragment();
+                return settingFragment;
             case 3:
-                ContactFragment tab4 = new ContactFragment();
-                return tab4;
+                ContactFragment contactFragment = new ContactFragment();
+                return contactFragment;
             default:
                 return null;
         }
